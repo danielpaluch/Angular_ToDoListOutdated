@@ -1,0 +1,17 @@
+<ng-container *ngIf="tasksList.length > 0; else noTask">
+    <p [ngStyle]="{color: getColor()}">
+        Wykonane zadania: {{tasksList.length}}
+    </p>
+    <div>
+        <ul>
+            <li appDate [date]="tasks.createdDate" *ngFor="let tasks of tasksList | sortName; let odd = odd" [ngClass]="{'odd-li': odd, 'last-li': tasksList.length==1}">
+                {{tasks.name | transformTask: "!"}}
+                <button type="button" class="btn btn-danger" (click)="remove(tasks)">Usuń</button>
+                <button type="button" class="btn btn-success" (click)="done(tasks)">Zrobione</button>
+            </li>
+        </ul>
+    </div>
+</ng-container>
+<ng-template #noTask>
+    <p>Brak zadań!</p>
+</ng-template>
